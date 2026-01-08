@@ -10,4 +10,5 @@ export default defineConfig({
       'html2canvas': path.resolve(__dirname, 'node_modules/html2canvas-pro'),
     },
   },
+  base: '',
 })
