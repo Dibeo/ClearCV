@@ -1,4 +1,4 @@
-import { LayoutDashboard, PlusCircle, FileText, Palette } from "lucide-react";
+import { PlusCircle, Palette } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useCvStore } from "../../../core/store/useCvStore";
 import { CV_THEMES, type ThemeId } from "../../cv-preview/themes/ThemeIndex";
