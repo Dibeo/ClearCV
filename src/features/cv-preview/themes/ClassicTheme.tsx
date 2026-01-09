@@ -1,8 +1,10 @@
 import type { CVData } from "../../../core/domain/cv.types";
 
 export const ClassicTheme = ({ data }: { data: CVData }) => (
-  <div className="p-16 h-full min-h-[297mm] flex flex-col font-serif bg-white text-slate-900" id="cv-to-print">
-
+  <div
+    className="p-16 h-full min-h-[297mm] flex flex-col font-serif bg-white text-slate-900"
+    id="cv-to-print"
+  >
     <header className="text-center border-b-2 border-slate-900 pb-6 mb-8">
       <h1 className="text-4xl font-bold tracking-tight uppercase mb-2">
         {data.personalInfo.fullName || "VOTRE NOM"}
@@ -14,10 +16,12 @@ export const ClassicTheme = ({ data }: { data: CVData }) => (
       <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-[10px] text-slate-600 max-w-2xl mx-auto">
         {data.personalInfo.contacts.map((c, i) => (
           <span key={c.id} className="flex items-center">
-            <span className="font-bold uppercase">{c.label}:</span>&nbsp;{c.value}
-            {i < data.personalInfo.contacts.length + data.personalInfo.socials.length - 1 && (
-              <span className="ml-3 text-slate-300">|</span>
-            )}
+            <span className="font-bold uppercase">{c.label}:</span>&nbsp;
+            {c.value}
+            {i <
+              data.personalInfo.contacts.length +
+                data.personalInfo.socials.length -
+                1 && <span className="ml-3 text-slate-300">|</span>}
           </span>
         ))}
         {data.personalInfo.socials.map((s, i) => (
@@ -53,14 +57,17 @@ export const ClassicTheme = ({ data }: { data: CVData }) => (
             <div key={exp.id}>
               <div className="flex justify-between items-baseline mb-1">
                 <h3 className="text-[13px] font-bold">
-                  {exp.company.toUpperCase()} — <span className="italic font-serif">{exp.role}</span>
+                  {exp.company.toUpperCase()} —{" "}
+                  <span className="italic font-serif">{exp.role}</span>
                 </h3>
                 <span className="text-[10px] font-bold uppercase tabular-nums">
                   {exp.startDate} — {exp.endDate}
                 </span>
               </div>
               {exp.description && (
-                <p className="text-[11px] text-slate-600 mb-2 italic">{exp.description}</p>
+                <p className="text-[11px] text-slate-600 mb-2 italic">
+                  {exp.description}
+                </p>
               )}
               <ul className="list-disc ml-5 space-y-1">
                 {exp.mission.map((m, idx) => (
@@ -84,9 +91,13 @@ export const ClassicTheme = ({ data }: { data: CVData }) => (
               <div key={edu.id} className="flex justify-between items-baseline">
                 <div>
                   <h3 className="text-[12px] font-bold">{edu.degree}</h3>
-                  <p className="text-[11px] italic text-slate-600">{edu.school}</p>
+                  <p className="text-[11px] italic text-slate-600">
+                    {edu.school}
+                  </p>
                 </div>
-                <span className="text-[10px] font-bold tabular-nums">{edu.year}</span>
+                <span className="text-[10px] font-bold tabular-nums">
+                  {edu.year}
+                </span>
               </div>
             ))}
           </div>
@@ -113,7 +124,8 @@ export const ClassicTheme = ({ data }: { data: CVData }) => (
             <div className="space-y-1">
               {data.languages.map((lang) => (
                 <p key={lang.id} className="text-[11px] text-slate-700">
-                  <span className="font-bold">{lang.name}</span> : <span className="italic">{lang.level}</span>
+                  <span className="font-bold">{lang.name}</span> :{" "}
+                  <span className="italic">{lang.level}</span>
                 </p>
               ))}
             </div>
@@ -128,7 +140,10 @@ export const ClassicTheme = ({ data }: { data: CVData }) => (
           </h2>
           <ul className="grid grid-cols-1 gap-1">
             {data.certifications.map((cert) => (
-              <li key={cert.id} className="text-[11px] text-slate-700 flex justify-between">
+              <li
+                key={cert.id}
+                className="text-[11px] text-slate-700 flex justify-between"
+              >
                 <span>
                   <span className="font-bold">{cert.name}</span>
                   {cert.issuer && ` — ${cert.issuer}`}

@@ -1,15 +1,17 @@
 import type { CVData } from "../../../core/domain/cv.types";
 import {
-  Github,
-  Linkedin,
-  Twitter,
-  Globe,
   Mail,
   Phone,
   MapPin,
-  ExternalLink,
+  Globe,
+  Award,
+  Languages,
+  Github,
+  Linkedin,
+  Twitter,
   Youtube,
   Instagram,
+  ExternalLink,
 } from "lucide-react";
 
 const SOCIAL_ICONS: Record<string, any> = {
@@ -22,164 +24,97 @@ const SOCIAL_ICONS: Record<string, any> = {
   instagram: Instagram,
 };
 
-const CONTACT_ICONS: Record<string, any> = {
-  email: Mail,
-  mail: Mail,
-  téléphone: Phone,
-  phone: Phone,
-  tel: Phone,
-  adresse: MapPin,
-  address: MapPin,
-  localisation: MapPin,
-};
-
 export const StandardTheme = ({ data }: { data: CVData }) => (
-  <div className="flex h-full min-h-[297mm] font-sans bg-white">
-    <aside className="w-[35%] bg-slate-100 p-10 flex flex-col gap-8 border-r border-slate-200">
-      {data.personalInfo.photoUrl && (
-        <div className="w-40 h-40 mx-auto rounded-2xl overflow-hidden border-4 border-white shadow-lg shrink-0">
-          <img
-            src={data.personalInfo.photoUrl}
-            className="w-full h-full object-cover"
-            alt="Profil"
-          />
-        </div>
-      )}
+  <div
+    className="p-12 h-full min-h-[297mm] bg-white text-slate-800 font-sans"
+    id="cv-to-print"
+  >
+    <header className="flex justify-between items-start border-b-2 border-blue-600 pb-8 mb-8">
+      <div className="max-w-[55%]">
+        <h1 className="text-4xl font-black text-slate-900 leading-none mb-2 uppercase">
+          {data.personalInfo.fullName || "VOTRE NOM"}
+        </h1>
+        <p className="text-xl font-bold text-blue-600 uppercase tracking-tight">
+          {data.personalInfo.title || "Titre du poste"}
+        </p>
+        {data.personalInfo.summary && (
+          <p className="mt-4 text-[11px] text-slate-600 leading-relaxed">
+            {data.personalInfo.summary}
+          </p>
+        )}
+      </div>
 
-      <section className="space-y-4">
-        <h2 className="text-blue-600 font-bold text-xs uppercase tracking-widest border-b border-blue-200 pb-1">
-          Contact
-        </h2>
-        <div className="space-y-3">
-          {data.personalInfo.contacts.map((c) => {
-            const Icon = CONTACT_ICONS[c.label.toLowerCase()] || Globe;
-            return (
-              <div key={c.id} className="flex items-start gap-3 text-[11px]">
-                <Icon size={14} className="text-blue-500 mt-0.5 shrink-0" />
-                <div>
-                  <p className="font-bold text-slate-500 uppercase text-[9px] leading-none mb-1">
-                    {c.label}
-                  </p>
-                  <p className="text-slate-800 break-all">{c.value || "—"}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {data.skills.length > 0 && (
-        <section className="space-y-3">
-          <h2 className="text-blue-600 font-bold text-xs uppercase tracking-widest border-b border-blue-200 pb-1">
-            Skills
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {data.skills.map((skill, i) => (
-              <span
-                key={i}
-                className="px-2 py-1 bg-white text-slate-700 text-[10px] font-medium rounded border border-slate-200 shadow-sm"
-              >
-                {skill}
-              </span>
-            ))}
+      <div className="flex flex-col items-end gap-3 min-w-[40%]">
+        <div className="space-y-1 text-right">
+          <div className="flex items-center justify-end gap-2 text-[10px] font-bold text-slate-700">
+            <span>{data.personalInfo.email}</span>
+            <Mail size={12} className="text-blue-600" />
           </div>
-        </section>
-      )}
+          <div className="flex items-center justify-end gap-2 text-[10px] font-bold text-slate-700">
+            <span>{data.personalInfo.phone}</span>
+            <Phone size={12} className="text-blue-600" />
+          </div>
+          <div className="flex items-center justify-end gap-2 text-[10px] font-bold text-slate-700">
+            <span>{data.personalInfo.address}</span>
+            <MapPin size={12} className="text-blue-600" />
+          </div>
+        </div>
 
-      {data.personalInfo.socials.length > 0 && (
-        <section className="space-y-3">
-          <h2 className="text-blue-600 font-bold text-xs uppercase tracking-widest border-b border-blue-200 pb-1">
-            Réseaux Sociaux
-          </h2>
-          <div className="space-y-3">
+        {data.personalInfo.socials.length > 0 && (
+          <div className="flex flex-col items-end gap-1.5 border-t border-slate-100 pt-3 w-full">
             {data.personalInfo.socials.map((social) => {
               const Icon =
                 SOCIAL_ICONS[social.platform.toLowerCase()] || ExternalLink;
+              const cleanUrl = social.url
+                .replace(/^https?:\/\//, "")
+                .replace(/^www\./, "")
+                .replace(/\/$/, "");
+
               return (
-                <div
-                  key={social.id}
-                  className="flex items-center gap-3 text-[11px]"
-                >
-                  <div className="p-1.5 bg-white rounded-md border border-slate-200 text-slate-600 shadow-sm">
-                    <Icon size={14} />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="font-bold text-slate-500 uppercase text-[9px] leading-none mb-1">
-                      {social.platform}
-                    </p>
-                    <a
-                      className="text-blue-600 truncate block hover:underline"
-                      href={social.url}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {social.url.replace(/^https?:\/\//, "") || "—"}
-                    </a>
+                <div key={social.id} className="flex items-center gap-2">
+                  <span className="text-[9px] text-slate-500 font-medium">
+                    {cleanUrl}
+                  </span>
+                  <div className="flex items-center gap-1 bg-slate-50 px-1.5 py-0.5 rounded border border-slate-100 justify-center">
+                    <Icon size={10} className="text-blue-600" />
                   </div>
                 </div>
               );
             })}
           </div>
-        </section>
-      )}
-    </aside>
-
-    <main className="flex-1 p-12 bg-white">
-      <header className="mb-10">
-        <h1 className="text-5xl font-black text-slate-900 uppercase tracking-tighter leading-none">
-          {data.personalInfo.fullName || "Votre Nom"}
-        </h1>
-        <p className="text-2xl text-blue-600 mt-2 font-light tracking-wide">
-          {data.personalInfo.title || "Titre du poste"}
-        </p>
-      </header>
-
-      <div className="space-y-10">
-        {data.personalInfo.summary && (
-          <section>
-            <h2 className="text-blue-600 font-bold text-xs uppercase tracking-[0.3em] mb-4 italic">
-              Profil
-            </h2>
-            <p className="text-slate-600 leading-relaxed text-sm whitespace-pre-wrap">
-              {data.personalInfo.summary}
-            </p>
-          </section>
         )}
+      </div>
+    </header>
 
+    <div className="grid grid-cols-3 gap-10">
+      <div className="col-span-2 space-y-8">
         <section>
-          <h2 className="text-blue-600 font-bold text-xs uppercase tracking-[0.3em] mb-6">
-            Expériences
+          <h2 className="text-sm font-black uppercase text-slate-900 mb-6 border-l-4 border-blue-600 pl-3">
+            Expériences Professionnelles
           </h2>
           <div className="space-y-8">
             {data.experiences.map((exp) => (
-              <div
-                key={exp.id}
-                className="relative pl-6 border-l-2 border-slate-100"
-              >
-                <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-blue-600 border-4 border-white shadow-sm" />
+              <div key={exp.id} className="print-avoid-break">
                 <div className="flex justify-between items-start mb-1">
-                  <h3 className="text-lg font-bold text-slate-800 leading-none">
+                  <h3 className="font-bold text-slate-900 text-[13px]">
                     {exp.role}
                   </h3>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase bg-slate-50 px-2 py-1 rounded">
+                  <span className="text-[9px] font-bold text-slate-500 tabular-nums uppercase">
                     {exp.startDate} — {exp.endDate}
                   </span>
                 </div>
-                <p className="text-blue-600 font-medium text-sm mb-2">
+                <p className="text-blue-600 font-bold text-[11px] mb-2 uppercase tracking-wide">
                   {exp.company}
                 </p>
-                {exp.description && (
-                  <p className="text-slate-500 text-xs mb-3 italic leading-snug">
-                    {exp.description}
-                  </p>
-                )}
-                <ul className="space-y-1.5">
-                  {exp.mission.map((m, idx) => (
+                <ul className="space-y-1.5 ml-1">
+                  {exp.mission.map((m, i) => (
                     <li
-                      key={idx}
-                      className="text-slate-700 text-xs flex gap-2 leading-relaxed"
+                      key={i}
+                      className="text-[11px] text-slate-600 flex gap-2"
                     >
-                      <span className="text-blue-500 font-bold">•</span>
+                      <span className="text-blue-600 font-bold text-[14px] leading-none">
+                        •
+                      </span>
                       {m}
                     </li>
                   ))}
@@ -188,7 +123,103 @@ export const StandardTheme = ({ data }: { data: CVData }) => (
             ))}
           </div>
         </section>
+
+        {data.educations.length > 0 && (
+          <section>
+            <h2 className="text-sm font-black uppercase text-slate-900 mb-6 border-l-4 border-blue-600 pl-3">
+              Formation
+            </h2>
+            <div className="space-y-4">
+              {data.educations.map((edu) => (
+                <div
+                  key={edu.id}
+                  className="flex justify-between items-baseline print-avoid-break"
+                >
+                  <div>
+                    <p className="font-bold text-slate-800 text-[12px]">
+                      {edu.degree}
+                    </p>
+                    <p className="text-[11px] text-slate-500 font-medium italic">
+                      {edu.school}
+                    </p>
+                  </div>
+                  <span className="text-[10px] font-bold text-slate-400 tabular-nums">
+                    {edu.year}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
-    </main>
+
+      <div className="space-y-8">
+        {data.skills.length > 0 && (
+          <section className="bg-slate-50 p-4 rounded-lg border border-slate-100">
+            <h2 className="text-[10px] font-black uppercase text-slate-900 mb-4 tracking-widest">
+              Compétences
+            </h2>
+            <div className="flex flex-wrap gap-1.5">
+              {data.skills.map((s, i) => (
+                <span
+                  key={i}
+                  className="bg-white text-slate-700 px-2 py-1 rounded border border-slate-200 text-[9px] font-bold uppercase shadow-sm"
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {data.languages.length > 0 && (
+          <section className="px-2">
+            <h2 className="text-[10px] font-black uppercase text-slate-900 mb-4 flex items-center gap-2 tracking-widest">
+              <Languages size={14} className="text-blue-600" /> Langues
+            </h2>
+            <div className="space-y-3">
+              {data.languages.map((lang) => (
+                <div
+                  key={lang.id}
+                  className="flex justify-between items-center border-b border-slate-50 pb-1"
+                >
+                  <span className="text-[10px] font-bold text-slate-800 uppercase">
+                    {lang.name}
+                  </span>
+                  <span className="text-[9px] text-blue-600 font-bold italic">
+                    {lang.level}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {data.certifications.length > 0 && (
+          <section className="px-2">
+            <h2 className="text-[10px] font-black uppercase text-slate-900 mb-4 flex items-center gap-2 tracking-widest">
+              <Award size={14} className="text-blue-600" /> Certifications
+            </h2>
+            <div className="space-y-4">
+              {data.certifications.map((cert) => (
+                <div key={cert.id} className="print-avoid-break">
+                  <p className="text-[10px] font-bold text-slate-800 leading-tight mb-1">
+                    {cert.name}
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <p className="text-[9px] text-blue-600 font-bold uppercase tracking-tighter">
+                      {cert.issuer}
+                    </p>
+                    <span className="text-[9px] text-slate-400 font-bold tabular-nums">
+                      {cert.year}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+    </div>
   </div>
 );

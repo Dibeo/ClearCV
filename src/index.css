@@ -47,6 +47,17 @@ div.swal2-actions button.swal2-cancel {
   letter-spacing: 0.05em;
 }
 
+.cv-preview-container {
+    background-image: linear-gradient(
+      to bottom,
+      transparent 296mm,
+      rgba(0,0,0,0.1) 296mm,
+      rgba(0,0,0,0.1) 297mm,
+      transparent 297mm
+    );
+    background-size: 100% 297mm;
+  }
+
 @media print {
   /* Cache tout sauf le portail */
   body > *:not(#cv-print-portal) {
@@ -75,5 +86,10 @@ div.swal2-actions button.swal2-cancel {
   @page {
     size: A4;
     margin: 0;
+  }
+
+  section {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 }
