@@ -1,41 +1,26 @@
-name: ESLint
+name: Run ESLint on Pull Requests
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
-  eslint:
-    name: Run eslint scanning
+  build:
+    name: Run ESLint
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-      actions: read
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      
+      # Check out the repository
+      - uses: actions/checkout@v1
 
-      - name: Install ESLint
-        run: |
-          npm install eslint@8.10.0
-          npm install @microsoft/eslint-formatter-sarif@3.1.0
-
-      - name: Run ESLint
-        env:
-          SARIF_ESLINT_IGNORE_SUPPRESSED: "true"
-        run: npx eslint .
-          --config .eslintrc.js
-          --ext .js,.jsx,.ts,.tsx
-          --format @microsoft/eslint-formatter-sarif
-          --output-file eslint-results.sarif
-        continue-on-error: true
-
-      - name: Upload analysis results to GitHub
-        uses: github/codeql-action/upload-sarif@v3
+      # Install Node.js
+      - uses: actions/setup-node@v1
         with:
-          sarif_file: eslint-results.sarif
-          wait-for-processing: true
+          node-version: 12
+
+      # Install your dependencies
+      - run: npm ci
+
+      # Run ESLint
+      - uses: eslint/github-action@v0
