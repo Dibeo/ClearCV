@@ -1,5 +1,5 @@
 # CV Generator Project
-[![Deploy on GitHub Pages](https://github.com/Dibeo/ClearCV/actions/workflows/deploy.yml/badge.svg)](https://github.com/Dibeo/ClearCV/actions/workflows/deploy.yml) [![Run ESLint on Pull Requests](https://github.com/Dibeo/ClearCV/actions/workflows/eslint.yml/badge.svg)](https://github.com/Dibeo/ClearCV/actions/workflows/eslint.yml)
+[![Deploy on GitHub Pages](https://github.com/Dibeo/ClearCV/actions/workflows/deploy.yml/badge.svg)](https://github.com/Dibeo/ClearCV/actions/workflows/deploy.yml) [![Run ESLint on Pull Requests](https://github.com/Dibeo/ClearCV/actions/workflows/eslint.yml/badge.svg)](https://github.com/Dibeo/ClearCV/actions/workflows/eslint.yml) [![Total dev time](https://wakatime.com/badge/user/018c21c3-001e-4fd3-93ef-f7f9ec6d1fdb/project/f4bd66dc-8af2-4b37-b4d1-398982b28655.svg)](https://wakatime.com/badge/user/018c21c3-001e-4fd3-93ef-f7f9ec6d1fdb/project/f4bd66dc-8af2-4b37-b4d1-398982b28655)
 
 This repository contains a dynamic, multi-themed CV generation application built with React and Tailwind CSS. The project allows users to input their professional data once and toggle between various high-quality visual themes instantly.
 

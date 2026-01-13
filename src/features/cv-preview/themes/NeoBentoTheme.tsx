@@ -16,7 +16,7 @@ export const NeoBentoTheme = ({ data }: { data: CVData }) => (
       {data.personalInfo.photoUrl && (
         <img
           src={data.personalInfo.photoUrl}
-          className="w-24 h-24 rounded-xl object-cover grayscale border border-slate-100"
+          className="w-24 h-24 rounded-xl object-cover border border-slate-100"
           alt={data.personalInfo.fullName}
         />
       )}
