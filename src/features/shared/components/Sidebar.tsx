@@ -3,8 +3,10 @@ import { PlusCircle, Palette, ChevronDown } from "lucide-react";
 import { NavLink, useParams } from "react-router-dom";
 import { useCvStore } from "../../../core/store/useCvStore";
 import { CV_THEMES } from "../../cv-preview/themes/ThemeIndex";
+import { useTranslation } from "react-i18next";
 
 export const Sidebar = () => {
+  const { t } = useTranslation("sidebar");
   const { data } = useCvStore();
   const { layout: currentUrlLayout } = useParams();
   const [isOpen, setIsOpen] = useState(false);
@@ -30,13 +32,13 @@ export const Sidebar = () => {
               }`
             }
           >
-            <PlusCircle size={20} /> Éditeur
+            <PlusCircle size={20} /> {t("sidebar.edit")}
           </NavLink>
         </div>
 
         <div className="mt-auto px-2 relative">
           <label className="flex items-center gap-2 text-slate-400 text-[10px] font-bold uppercase mb-2">
-            <Palette size={14} /> Design du Template
+            <Palette size={14} /> {t("sidebar.design")}
           </label>
 
           <button

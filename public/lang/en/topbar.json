@@ -1,0 +1,16 @@
+{
+  "topbar": {
+    "title": "Clear",
+    "new": "New",
+    "save": "Save",
+    "export_pdf": "Export to PDF",
+    "alerts": {
+      "warning": "Warning",
+      "name_required": "Please enter your name.",
+      "preparing": "Preparing print...",
+      "print_info": "The print dialog will open. Remember to check 'Background graphics'.",
+      "error": "Error",
+      "export_failed": "Unable to open the print module."
+    }
+  }
+}

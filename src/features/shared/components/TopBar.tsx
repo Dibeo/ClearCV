@@ -1,73 +1,102 @@
-import { Save, PlusCircle, Sun, Moon, Download } from "lucide-react";
+import {
+  Save,
+  PlusCircle,
+  Sun,
+  Moon,
+  Download,
+  ChevronDown,
+} from "lucide-react";
 import { useTheme } from "../../../hooks/useTheme";
 import { useCvStore } from "../../../core/store/useCvStore";
-import Swal from "sweetalert2";
-import { getBase64ImageFromURL } from "../../../core/utils/imageUtils";
-import { exportCvPdf } from "../../../core/services/pdf/cv-export.service";
+import { useTranslation } from "react-i18next";
+import { LANGUAGES } from "../../../core/config/language";
+import { useState, useRef, useEffect } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { handleCvExport } from "../../../core/services/pdf/cv-action.service";
 
 export const TopBar = () => {
+  const { t, i18n } = useTranslation("topbar");
   const { theme, toggleTheme } = useTheme();
   const { data, reset } = useCvStore();
+  const [isLangOpen, setIsLangOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const { lng } = useParams();
 
-  const handleExportPdf = async () => {
-    if (!data.personalInfo.fullName) {
-      Swal.fire({
-        icon: "warning",
-        title: "Attention",
-        text: "Veuillez renseigner votre nom.",
-      });
-      return;
-    }
+  const activeCode = (lng || i18n.resolvedLanguage || "fr").toLowerCase();
+  const currentLang =
+    LANGUAGES.find((l) => l.code.toLowerCase() === activeCode) || LANGUAGES[0];
 
-    Swal.fire({
-      title: "Préparation de l'impression...",
-      text: "Le dialogue d'impression va s'ouvrir. Pensez à cocher 'Graphiques d'arrière-plan'.",
-      icon: "info",
-      timer: 2000,
-      showConfirmButton: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
-
-    try {
-      const dataForPdf = JSON.parse(JSON.stringify(data));
-      if (
-        data.personalInfo.photoUrl &&
-        data.personalInfo.photoUrl.startsWith("http")
-      ) {
-        try {
-          const base64 = await getBase64ImageFromURL(
-            data.personalInfo.photoUrl
-          );
-          dataForPdf.personalInfo.photoUrl = base64;
-        } catch (e) {
-          console.warn("Échec conversion photo, export sans image", e);
-        }
-      }
-      await exportCvPdf(dataForPdf);
-    } catch (error) {
-      console.error(error);
-      Swal.fire({
-        icon: "error",
-        title: "Erreur",
-        text: "Impossible d'ouvrir le module d'impression.",
-      });
-    }
+  const handleLanguageChange = (newLng: string) => {
+    const segments = pathname.split("/").filter(Boolean);
+    segments[0] = newLng;
+    navigate(`/${segments.join("/")}`, { replace: true });
+    setIsLangOpen(false);
   };
 
+  useEffect(() => {
+    const close = (e: MouseEvent) =>
+      !dropdownRef.current?.contains(e.target as Node) && setIsLangOpen(false);
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, []);
+
   return (
-    <header className="h-16 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between px-8 transition-colors sticky top-0 z-50">
-      <div className="flex items-center gap-4">
-        <h1 className="font-bold text-slate-800 dark:text-white text-lg">
-          Clear<span className="text-blue-500">CV</span>
-        </h1>
-      </div>
+    <header className="h-16 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between px-8 sticky top-0 z-50 transition-colors">
+      <h1 className="font-bold text-slate-800 dark:text-white text-lg">
+        {t("topbar.title")}
+        <span className="text-blue-500">CV</span>
+      </h1>
 
       <div className="flex items-center gap-2">
+        <div className="relative" ref={dropdownRef}>
+          <button
+            onClick={() => setIsLangOpen(!isLangOpen)}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-300"
+          >
+            <img
+              src={currentLang.flagUrl}
+              alt=""
+              className="w-5 h-3.5 object-cover rounded-[2px] shadow-sm"
+            />
+            <span className="text-sm font-bold uppercase">
+              {currentLang.code}
+            </span>
+            <ChevronDown
+              size={14}
+              className={`transition-transform ${isLangOpen ? "rotate-180" : ""}`}
+            />
+          </button>
+
+          {isLangOpen && (
+            <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-150">
+              {LANGUAGES.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => handleLanguageChange(lang.code)}
+                  className={`w-full flex items-center justify-between px-4 py-2.5 text-sm ${activeCode === lang.code.toLowerCase() ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-semibold" : "text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50"}`}
+                >
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={lang.flagUrl}
+                      alt=""
+                      className="w-5 h-3.5 object-cover rounded-[2px]"
+                    />
+                    <span>{lang.label}</span>
+                  </div>
+                  {activeCode === lang.code.toLowerCase() && (
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
         <button
           onClick={toggleTheme}
-          className="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"
+          className="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full"
         >
           {theme === "dark" ? (
             <Sun size={18} className="text-yellow-400" />
@@ -76,27 +105,22 @@ export const TopBar = () => {
           )}
         </button>
 
-        <div className="h-6 w-[1px] bg-slate-200 dark:bg-slate-700 mx-2" />
-
         <button
           onClick={reset}
           className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-red-500 transition-colors"
         >
-          <PlusCircle size={18} /> Nouveau
+          <PlusCircle size={18} /> {t("topbar.new")}
+        </button>
+
+        <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
+          <Save size={18} /> {t("topbar.save")}
         </button>
 
         <button
-          onClick={reset}
-          className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-red-500 transition-colors"
+          onClick={() => handleCvExport(data, t)}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-lg text-sm font-medium flex items-center gap-2 ml-2 shadow-md active:scale-95 transition-all"
         >
-          <Save size={18} /> Sauvegarder
-        </button>
-
-        <button
-          onClick={handleExportPdf}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-lg text-sm font-medium flex items-center gap-2 ml-2 transition-all shadow-md active:scale-95"
-        >
-          <Download size={18} /> Exporter en PDF
+          <Download size={18} /> {t("topbar.export_pdf")}
         </button>
       </div>
     </header>

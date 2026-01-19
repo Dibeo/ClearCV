@@ -1,0 +1,16 @@
+{
+  "topbar": {
+    "title": "Clear",
+    "new": "Nouveau",
+    "save": "Sauvergarder",
+    "export_pdf": "Exporter en PDF",
+    "alerts": {
+      "warning": "Attention",
+      "name_required": "Entrer un nom.",
+      "preparing": "Preparation de téléchargement...",
+      "print_info": "La fenetre va s'ouvrir. Activé 'Background graphics'.",
+      "error": "Erreur",
+      "export_failed": "Imossible de lancé l'impression PDF."
+    }
+  }
+}
