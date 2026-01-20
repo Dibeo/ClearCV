@@ -12,10 +12,7 @@ export const exportCvPdf = async (data: CVData) => {
 
   try {
     await CvNativeEngine.export(Component, fileName);
-
-    console.log("Impression lancée pour :", fileName);
   } catch (error) {
     console.error("Erreur lors de l'export :", error);
-    throw error;
   }
 };

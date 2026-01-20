@@ -1,7 +1,9 @@
 import { Mail, Plus, Trash2 } from "lucide-react";
 import { useCvStore } from "../../../core/store/useCvStore";
+import { useTranslation } from "react-i18next";
 
 export const FormContacts = () => {
+  const { t } = useTranslation("form");
   const { data, updateData } = useCvStore();
 
   const addContact = () => {
@@ -36,7 +38,7 @@ export const FormContacts = () => {
         <div className="flex items-center gap-2">
           <Mail className="text-blue-500" size={20} />
           <h2 className="text-xl font-bold text-slate-800 dark:text-white">
-            Contacts
+             {t("contact.title")}
           </h2>
         </div>
         <button

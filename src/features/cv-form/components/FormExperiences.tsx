@@ -1,9 +1,11 @@
 import { Briefcase, Plus, Trash2, ListPlus } from "lucide-react";
 import { useCvStore } from "../../../core/store/useCvStore";
 import type { Experience } from "../../../core/domain/cv.types";
+import { useTranslation } from "react-i18next";
 
 export const FormExperiences = () => {
   const { data, updateData } = useCvStore();
+  const { t } = useTranslation("form");
 
   const addExperience = () => {
     const newExp: Experience = {
@@ -51,12 +53,13 @@ export const FormExperiences = () => {
         <div className="flex items-center gap-2">
           <Briefcase className="text-blue-500" size={20} />
           <h2 className="text-xl font-bold text-slate-800 dark:text-white">
-            Expériences
+            {t("experience.title")}
           </h2>
         </div>
         <button
           onClick={addExperience}
           className="text-blue-500 hover:bg-blue-50 p-1 rounded-full transition-colors"
+          title={t("experience.add")}
         >
           <Plus size={20} />
         </button>
@@ -84,35 +87,35 @@ export const FormExperiences = () => {
                 type="text"
                 value={exp.company}
                 onChange={(e) => updateExp(exp.id, "company", e.target.value)}
-                placeholder="Entreprise"
+                placeholder={t("experience.company")}
                 className="input-field text-sm"
               />
               <input
                 type="text"
                 value={exp.role}
                 onChange={(e) => updateExp(exp.id, "role", e.target.value)}
-                placeholder="Poste"
+                placeholder={t("experience.role")}
                 className="input-field text-sm"
               />
               <input
                 type="text"
                 value={exp.startDate}
                 onChange={(e) => updateExp(exp.id, "startDate", e.target.value)}
-                placeholder="Début"
+                placeholder={t("experience.startDate")}
                 className="input-field text-sm"
               />
               <input
                 type="text"
                 value={exp.endDate}
                 onChange={(e) => updateExp(exp.id, "endDate", e.target.value)}
-                placeholder="Fin"
+                placeholder={t("experience.endDate")}
                 className="input-field text-sm"
               />
             </div>
 
             <div className="space-y-2">
               <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                Résumé de l'expérience
+                {t("experience.summaryLabel")}
               </label>
               <textarea
                 value={exp.description}
@@ -121,20 +124,20 @@ export const FormExperiences = () => {
                 }
                 className="input-field text-sm resize-none"
                 rows={2}
-                placeholder="Contexte du projet..."
+                placeholder={t("experience.summaryPlaceholder")}
               />
             </div>
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                  Points clés / Missions
+                  {t("experience.missionsLabel")}
                 </label>
                 <button
                   onClick={() => addMissionPoint(exp.id)}
                   className="text-blue-500 flex items-center gap-1 text-[10px] font-bold hover:underline"
                 >
-                  <ListPlus size={14} /> AJOUTER
+                  <ListPlus size={14} /> {t("experience.addMission")}
                 </button>
               </div>
               <div className="space-y-2">
@@ -148,7 +151,7 @@ export const FormExperiences = () => {
                         updateMissionPoint(exp.id, idx, e.target.value)
                       }
                       className="flex-1 bg-transparent border-b border-slate-100 dark:border-slate-800 focus:border-blue-500 outline-none text-sm py-1 text-slate-600 dark:text-slate-300"
-                      placeholder="Réalisation ou tâche..."
+                      placeholder={t("experience.missionPlaceholder")}
                     />
                     <button
                       onClick={() => {

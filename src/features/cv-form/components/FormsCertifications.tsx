@@ -1,9 +1,11 @@
 import { Award, Plus, Trash2 } from "lucide-react";
 import { useCvStore } from "../../../core/store/useCvStore";
 import type { Certification } from "../../../core/domain/cv.types";
+import { useTranslation } from "react-i18next";
 
 export const FormCertifications = () => {
   const { data, updateData } = useCvStore();
+  const { t } = useTranslation("form");
 
   const addCert = () => {
     const newCert: Certification = {
@@ -28,7 +30,7 @@ export const FormCertifications = () => {
         <div className="flex items-center gap-2">
           <Award className="text-blue-500" size={20} />
           <h2 className="text-xl font-bold text-slate-800 dark:text-white">
-            Certificats & Permis
+            {t("certifications.title")}
           </h2>
         </div>
         <button
@@ -61,21 +63,21 @@ export const FormCertifications = () => {
                 type="text"
                 value={cert.name}
                 onChange={(e) => updateCert(cert.id, "name", e.target.value)}
-                placeholder="Nom (Permis B, AWS...)"
+                placeholder={t("certifications.namePlaceholder")}
                 className="input-field text-sm"
               />
               <input
                 type="text"
                 value={cert.issuer}
                 onChange={(e) => updateCert(cert.id, "issuer", e.target.value)}
-                placeholder="Organisme"
+                placeholder={t("certifications.issuerPlaceholder")}
                 className="input-field text-sm"
               />
               <input
                 type="text"
                 value={cert.year}
                 onChange={(e) => updateCert(cert.id, "year", e.target.value)}
-                placeholder="Année"
+                placeholder={t("certifications.yearPlaceholder")}
                 className="input-field text-sm"
               />
             </div>

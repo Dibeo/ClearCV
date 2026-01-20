@@ -1,9 +1,11 @@
 import { GraduationCap, Plus, Trash2 } from "lucide-react";
 import { useCvStore } from "../../../core/store/useCvStore";
 import type { Education } from "../../../core/domain/cv.types";
+import { useTranslation } from "react-i18next";
 
 export const FormEducations = () => {
   const { data, updateData } = useCvStore();
+  const { t } = useTranslation("form");
 
   const addEducation = () => {
     const newEdu: Education = {
@@ -34,8 +36,8 @@ export const FormEducations = () => {
       <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
         <div className="flex items-center gap-2">
           <GraduationCap className="text-indigo-500" size={20} />
-          <h2 className="text-xl font-bold text-slate-800 dark:text-white uppercase tracking-tight">
-            Formation & Diplômes
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white tracking-tight">
+             {t("education.title")}
           </h2>
         </div>
         <button
@@ -62,7 +64,7 @@ export const FormEducations = () => {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-3 pr-8">
               <div className="md:col-span-5">
                 <label className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 mb-1 block">
-                  Diplôme
+                  {t("education.degree")}
                 </label>
                 <input
                   type="text"
@@ -75,7 +77,7 @@ export const FormEducations = () => {
 
               <div className="md:col-span-4">
                 <label className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 mb-1 block">
-                  École
+                  {t("education.school")}
                 </label>
                 <input
                   type="text"
@@ -87,7 +89,7 @@ export const FormEducations = () => {
               </div>
               <div className="md:col-span-3">
                 <label className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 mb-1 block">
-                  Année
+                  {t("education.year")}
                 </label>
                 <input
                   type="text"
