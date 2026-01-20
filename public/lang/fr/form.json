@@ -40,5 +40,11 @@
     "namePlaceholder": "Nom (Permis B, AWS...)",
     "issuerPlaceholder": "Organisme",
     "yearPlaceholder": "Année"
+  },
+  "skills": {
+    "title": "Compétences",
+    "add": "Ajouter une compétence",
+    "placeholder": "Ex: React, TypeScript, Docker...",
+    "emptyInstruction": "Appuyez sur Entrée ou sur le bouton + pour ajouter une compétence."
   }
 }

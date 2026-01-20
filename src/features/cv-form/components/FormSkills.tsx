@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Laptop, Plus, X } from "lucide-react";
 import { useCvStore } from "../../../core/store/useCvStore";
+import { useTranslation } from "react-i18next";
 
 export const FormSkills = () => {
   const { data, updateData } = useCvStore();
+  const { t } = useTranslation("form");
   const [inputValue, setInputValue] = useState("");
 
   const addSkill = (skillName: string) => {
@@ -32,7 +34,7 @@ export const FormSkills = () => {
       <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-2">
         <Laptop className="text-blue-500" size={20} />
         <h2 className="text-xl font-bold text-slate-800 dark:text-white">
-          Compétences
+          {t("skills.title")}
         </h2>
       </div>
 
@@ -43,7 +45,7 @@ export const FormSkills = () => {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ex: React, TypeScript, Docker..."
+            placeholder={t("skills.placeholder")}
             className="input-field flex-1"
           />
           <button
@@ -73,7 +75,7 @@ export const FormSkills = () => {
 
         {data.skills.length === 0 && (
           <p className="text-xs text-slate-400 italic">
-            Appuyez sur Entrée ou sur le bouton + pour ajouter une compétence.
+            {t("skills.emptyInstruction")}
           </p>
         )}
       </div>
