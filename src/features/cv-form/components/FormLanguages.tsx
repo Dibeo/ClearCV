@@ -1,9 +1,11 @@
 import { Languages, Plus, Trash2 } from "lucide-react";
 import type { Language } from "../../../core/domain/cv.types";
 import { useCvStore } from "../../../core/store/useCvStore";
+import { useTranslation } from "react-i18next";
 
 export const FormLanguages = () => {
   const { data, updateData } = useCvStore();
+  const { t } = useTranslation("form");
 
   const addLanguage = () => {
     const newLang: Language = {
@@ -27,7 +29,7 @@ export const FormLanguages = () => {
         <div className="flex items-center gap-2">
           <Languages className="text-blue-500" size={20} />
           <h2 className="text-xl font-bold text-slate-800 dark:text-white">
-            Langues
+            {t("languages.title")}
           </h2>
         </div>
         <button
@@ -60,14 +62,14 @@ export const FormLanguages = () => {
                 type="text"
                 value={lang.name}
                 onChange={(e) => updateLang(lang.id, "name", e.target.value)}
-                placeholder="Langue (ex: Anglais)"
+                placeholder={t("languages.namePlaceholder")}
                 className="input-field text-sm w-full"
               />
               <input
                 type="text"
                 value={lang.level}
                 onChange={(e) => updateLang(lang.id, "level", e.target.value)}
-                placeholder="Niveau (ex: C1, Maternel...)"
+                placeholder={t("languages.levelPlaceholder")}
                 className="input-field text-sm w-full"
               />
             </div>

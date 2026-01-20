@@ -1,0 +1,37 @@
+{
+  "contact": {
+    "title": "Contacts"
+  },
+  "education": {
+    "title": "Formation & Diplômes",
+    "degree" : "Diplôme",
+    "school": "École",
+    "year": "Année"
+  },
+  "experience": {
+    "title": "Expériences",
+    "add": "Ajouter une expérience",
+    "company": "Entreprise",
+    "role": "Poste",
+    "startDate": "Début",
+    "endDate": "Fin",
+    "summaryLabel": "Résumé de l'expérience",
+    "summaryPlaceholder": "Contexte du projet...",
+    "missionsLabel": "Points clés / Missions",
+    "addMission": "Ajouter",
+    "missionPlaceholder": "Réalisation ou tâche..."
+  },
+  "identity": {
+    "title": "Identité",
+    "photoLabel": "photo",
+    "fullName": "Nom complet",
+    "jobTitle": "Poste visé",
+    "summaryLabel": "Résumé professionnel",
+    "summaryPlaceholder": "Décrivez votre parcours..."
+  },
+  "languages": {
+    "title": "Langues",
+    "namePlaceholder": "Langue (ex: Anglais)",
+    "levelPlaceholder": "Niveau (ex: C1, Maternel...)"
+  }
+}
