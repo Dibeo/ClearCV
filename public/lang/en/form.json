@@ -1,8 +1,56 @@
 {
   "contact": {
-    "title": "Contact"
+    "title": "Contact Information"
   },
   "education": {
-    "title": "Formation & Degree"
+    "title": "Education & Degrees",
+    "degree": "Degree",
+    "school": "School / University",
+    "year": "Year"
+  },
+  "experience": {
+    "title": "Experience",
+    "add": "Add experience",
+    "company": "Company",
+    "role": "Job Title",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "summaryLabel": "Experience Summary",
+    "summaryPlaceholder": "Project context...",
+    "missionsLabel": "Key Achievements / Responsibilities",
+    "addMission": "Add",
+    "missionPlaceholder": "Task or achievement..."
+  },
+  "identity": {
+    "title": "Identity",
+    "photoLabel": "PHOTO",
+    "fullName": "Full Name",
+    "jobTitle": "Target Position",
+    "summaryLabel": "Professional Summary",
+    "summaryPlaceholder": "Describe your background..."
+  },
+  "languages": {
+    "title": "Languages",
+    "namePlaceholder": "Language (e.g., English)",
+    "levelPlaceholder": "Level (e.g., C1, Native...)"
+  },
+  "certifications": {
+    "title": "Certifications & Licenses",
+    "add": "Add certification",
+    "namePlaceholder": "Name (Driver's License, AWS...)",
+    "issuerPlaceholder": "Issuing Organization",
+    "yearPlaceholder": "Year"
+  },
+  "skills": {
+    "title": "Skills",
+    "add": "Add skill",
+    "placeholder": "e.g., React, TypeScript, Docker...",
+    "emptyInstruction": "Press Enter or the + button to add a skill."
+  },
+  "socials": {
+    "title": "Social Media",
+    "add": "Add network",
+    "platformPlaceholder": "Platform (e.g., LinkedIn)",
+    "urlPlaceholder": "URL"
   }
 }

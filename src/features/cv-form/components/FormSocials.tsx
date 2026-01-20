@@ -1,13 +1,15 @@
 import { Share2, Plus, Trash2 } from "lucide-react";
 import { useCvStore } from "../../../core/store/useCvStore";
+import { useTranslation } from "react-i18next";
 
 export const FormSocials = () => {
   const { data, updateData } = useCvStore();
+  const { t } = useTranslation("form");
 
   const addSocial = () => {
     const newSocial = {
       id: crypto.randomUUID(),
-      platform: "LinkedIn",
+      platform: "",
       url: "",
     };
     updateData({
@@ -21,10 +23,10 @@ export const FormSocials = () => {
   const updateSocial = (
     id: string,
     field: "platform" | "url",
-    value: string
+    value: string,
   ) => {
     const updated = data.personalInfo.socials.map((s) =>
-      s.id === id ? { ...s, [field]: value } : s
+      s.id === id ? { ...s, [field]: value } : s,
     );
     updateData({ personalInfo: { ...data.personalInfo, socials: updated } });
   };
@@ -40,7 +42,7 @@ export const FormSocials = () => {
         <div className="flex items-center gap-2">
           <Share2 className="text-blue-500" size={20} />
           <h2 className="text-xl font-bold text-slate-800 dark:text-white">
-            Réseaux Sociaux
+            {t("socials.title")}
           </h2>
         </div>
         <button
@@ -64,17 +66,19 @@ export const FormSocials = () => {
                 updateSocial(social.id, "platform", e.target.value)
               }
               className="flex-1 input-field text-sm"
+              placeholder={t("socials.platformPlaceholder")}
             />
             <input
               type="text"
               value={social.url}
               onChange={(e) => updateSocial(social.id, "url", e.target.value)}
               className="flex-1 input-field text-sm"
-              placeholder="URL"
+              placeholder={t("socials.urlPlaceholder")}
             />
             <button
               onClick={() => removeSocial(social.id)}
               className="text-slate-300 hover:text-red-500 p-2 opacity-0 group-hover:opacity-100 transition-all"
+              title={t("common.delete")}
             >
               <Trash2 size={16} />
             </button>
