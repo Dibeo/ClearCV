@@ -15,7 +15,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { handleCvExport } from "../../../core/services/pdf/cv-action.service";
 
 export const TopBar = () => {
-  const { t, i18n } = useTranslation("topbar");
+  const { t, i18n } = useTranslation("bar");
   const { theme, toggleTheme } = useTheme();
   const { data, reset } = useCvStore();
   const [isLangOpen, setIsLangOpen] = useState(false);

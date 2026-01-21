@@ -9,9 +9,6 @@ export const CvPreview = () => {
 
   return (
     <div className="sticky top-12 print:static print:m-0 flex flex-col items-center">
-      {/* 1. Retrait du overflow-hidden (pour laisser couler le texte)
-          2. Retrait de la hauteur fixe (pour que le conteneur grandisse)
-      */}
       <div className="w-[210mm] bg-white shadow-2xl origin-top scale-[0.4] md:scale-[0.5] lg:scale-[0.6] xl:scale-[0.75] text-black transition-all print:scale-100 print:transform-none print:shadow-none cv-preview-container">
         <SelectedTheme.component data={data} />
       </div>

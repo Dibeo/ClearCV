@@ -10,7 +10,7 @@ i18n
   .init({
     fallbackLng: "en",
     load: 'languageOnly',
-    ns: ["common", "topbar", "sidebar", "form"],
+    ns: ["common", "bar", "form"],
     defaultNS: "common",
     backend: {
       loadPath: "/ClearCV/lang/{{lng}}/{{ns}}.json",

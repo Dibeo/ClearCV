@@ -8,11 +8,11 @@ import { NeoBentoTheme } from "./NeoBentoTheme";
 
 export const CV_THEMES = {
   classic: { component: ClassicTheme, label: "Classique" },
-  modern: { component: ModernTheme, label: "Moderne (Dark Side)" },
-  standard: { component: StandardTheme, label: "Standard" },
-  hipster: { component : HipsterTheme, label : "Hipster" },
   elegant: { component : ElegantTheme, label : "Elegant" },
+  hipster: { component : HipsterTheme, label : "Hipster" },
+  modern: { component: ModernTheme, label: "Moderne (Dark Side)" },
   neobento: { component : NeoBentoTheme, label : "NeoBento" },
+  standard: { component: StandardTheme, label: "Standard" },
 };
 
 export type ThemeId = keyof typeof CV_THEMES;

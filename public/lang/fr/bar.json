@@ -1,4 +1,11 @@
 {
+  "sidebar": {
+    "edit": "Editeur",
+    "design": "Design Template",
+    "pdfLanguage": "Langue du CV",
+    "searchTheme": "Chercher un theme",
+    "searchLang": "Chercher une langue"
+  },
   "topbar": {
     "title": "Clear",
     "new": "Nouveau",

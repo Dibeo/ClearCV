@@ -3,6 +3,10 @@ import type { CVData } from "../../domain/cv.types";
 export const migrateCVData = (oldData: CVData): CVData => {
   return {
     ...oldData,
+    metadata: oldData?.metadata || {
+      ...oldData?.metadata,
+      language : "",
+    },
     experiences: oldData?.experiences || [],
     educations: oldData?.educations || [],
     skills: oldData?.skills || [],

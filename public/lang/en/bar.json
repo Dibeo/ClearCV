@@ -1,4 +1,11 @@
 {
+  "sidebar": {
+    "edit": "Editor",
+    "design": "Template's Design",
+    "pdfLanguage": "CV language",
+    "searchTheme": "Search theme",
+    "searchLang": "Search language"
+  },
   "topbar": {
     "title": "Clear",
     "new": "New",
