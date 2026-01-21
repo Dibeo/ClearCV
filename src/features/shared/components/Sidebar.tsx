@@ -33,7 +33,7 @@ export const Sidebar = () => {
 
   const filteredThemes = useMemo(
     () =>
-      Object.entries(CV_THEMES).filter(([_, theme]) =>
+      Object.entries(CV_THEMES).filter(([, theme]) =>
         theme.label.toLowerCase().includes(themeSearch.toLowerCase()),
       ),
     [themeSearch],
