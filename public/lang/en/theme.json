@@ -1,0 +1,12 @@
+{
+    "defaultName": "YOUR NAME",
+    "defaultTitle": "Job Title",
+    "sections": {
+      "summary": "Professional Profile",
+      "experience": "Professional Experience",
+      "education": "Academic Background",
+      "skills": "Technical Expertise",
+      "languages": "Languages",
+      "certifications": "Certifications & Additional Information"
+    }
+}

@@ -5,7 +5,8 @@ export const INITIAL_CV_DATA: CVData = {
   metadata: {
     name: "CV Alice Blue - 2026",
     lastModified: Date.now(),
-    layout: "modern"
+    layout: "modern",
+    language: "fr"
   },
   personalInfo: {
     fullName: "Alice Blue",

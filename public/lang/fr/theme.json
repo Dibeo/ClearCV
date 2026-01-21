@@ -1,0 +1,12 @@
+{
+  "defaultName": "VOTRE NOM",
+  "defaultTitle": "Titre du poste",
+  "sections": {
+    "summary": "Profil Professionnel",
+    "experience": "Expériences Professionnelles",
+    "education": "Cursus Académique",
+    "skills": "Expertise Technique",
+    "languages": "Langues",
+    "certifications": "Certifications & Informations Complémentaires"
+  }
+}

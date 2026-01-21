@@ -34,6 +34,7 @@ export interface CVData {
     name: string;
     lastModified: number;
     layout: string;
+    language: string;
   };
   personalInfo: {
     fullName: string;
