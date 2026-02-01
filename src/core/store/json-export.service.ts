@@ -47,3 +47,29 @@ export const saveCvToJson = (data: CVData) => {
     console.error(error);
   }
 };
+
+export const importCvFromJson = (file: File, updateData: (data: CVData) => void) => {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const content = e.target?.result as string;
+      const parsedData = JSON.parse(content);
+
+      updateData(parsedData);
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Importé !',
+        text: 'Les données ont été chargées.',
+        timer: 2000,
+        showConfirmButton: false,
+        toast: true,
+        position: 'top-end',
+      });
+    } catch (error) {
+      Swal.fire({ icon: 'error', title: 'Erreur', text: 'Fichier JSON invalide.' });
+      console.error(error);
+    }
+  };
+  reader.readAsText(file);
+};
