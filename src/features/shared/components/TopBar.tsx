@@ -1,10 +1,10 @@
 import {
   Save,
-  PlusCircle,
   Sun,
   Moon,
   Download,
   ChevronDown,
+  Upload,
 } from "lucide-react";
 import { useTheme } from "../../../hooks/useTheme";
 import { useCvStore } from "../../../core/store/useCvStore";
@@ -13,16 +13,18 @@ import { LANGUAGES } from "../../../core/config/language";
 import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { handleCvExport } from "../../../core/services/pdf/cv-action.service";
+import { importCvFromJson, saveCvToJson } from "../../../core/store/json-export.service";
 
 export const TopBar = () => {
   const { t, i18n } = useTranslation("bar");
   const { theme, toggleTheme } = useTheme();
-  const { data, reset } = useCvStore();
+  const { data, updateData } = useCvStore();
   const [isLangOpen, setIsLangOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { lng } = useParams();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const activeCode = (lng || i18n.resolvedLanguage || "fr").toLowerCase();
   const currentLang =
@@ -33,6 +35,14 @@ export const TopBar = () => {
     segments[0] = newLng;
     navigate(`/${segments.join("/")}`, { replace: true });
     setIsLangOpen(false);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      importCvFromJson(file, updateData);
+      e.target.value = "";
+    }
   };
 
   useEffect(() => {
@@ -50,6 +60,14 @@ export const TopBar = () => {
       </h1>
 
       <div className="flex items-center gap-2">
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          accept=".json"
+          className="hidden"
+        />
+        
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setIsLangOpen(!isLangOpen)}
@@ -106,13 +124,13 @@ export const TopBar = () => {
         </button>
 
         <button
-          onClick={reset}
+          onClick={() => fileInputRef.current?.click()}
           className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-red-500 transition-colors"
         >
-          <PlusCircle size={18} /> {t("topbar.new")}
+          <Upload size={18} /> {t("topbar.new")}
         </button>
 
-        <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
+        <button onClick={() => saveCvToJson(data)} className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
           <Save size={18} /> {t("topbar.save")}
         </button>
 
