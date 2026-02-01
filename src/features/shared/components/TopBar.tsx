@@ -13,6 +13,7 @@ import { LANGUAGES } from "../../../core/config/language";
 import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { handleCvExport } from "../../../core/services/pdf/cv-action.service";
+import { saveCvToJson } from "../../../core/store/json-export.service";
 
 export const TopBar = () => {
   const { t, i18n } = useTranslation("bar");
@@ -112,7 +113,7 @@ export const TopBar = () => {
           <PlusCircle size={18} /> {t("topbar.new")}
         </button>
 
-        <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
+        <button onClick={() => saveCvToJson(data)} className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
           <Save size={18} /> {t("topbar.save")}
         </button>
 
