@@ -18,6 +18,26 @@
       "print_info": "The print dialog will open. Remember to check 'Background graphics'.",
       "error": "Error",
       "export_failed": "Unable to open the print module."
+    },
+    "errors": {
+      "title": "Error",
+      "oops": "Oops...",
+      "noData": "There is no data to save.",
+      "generationFailed": "An error occurred while generating the file.",
+      "invalidJson": "Invalid JSON file."
+    },
+    "success": {
+      "saved": "Saved!",
+      "downloaded": "Your CV configuration has been successfully downloaded.",
+      "imported": "Imported!",
+      "dataLoaded": "Data has been loaded."
+    },
+    "file": {
+      "name": "my-cv"
+    },
+    "buttons": {
+      "save": "Save CV",
+      "import": "Import CV"
     }
   }
 }

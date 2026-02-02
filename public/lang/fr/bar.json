@@ -18,6 +18,26 @@
       "print_info": "La fenetre va s'ouvrir. Activé 'Background graphics'.",
       "error": "Erreur",
       "export_failed": "Imossible de lancé l'impression PDF."
+    },
+    "errors": {
+      "title": "Erreur",
+      "oops": "Oups...",
+      "noData": "Il n’y a aucune donnée à sauvegarder.",
+      "generationFailed": "Une erreur est survenue lors de la génération du fichier.",
+      "invalidJson": "Fichier JSON invalide."
+    },
+    "success": {
+      "saved": "Sauvegardé !",
+      "downloaded": "Votre configuration CV a été téléchargée avec succès.",
+      "imported": "Importé !",
+      "dataLoaded": "Les données ont été chargées."
+    },
+    "file": {
+      "name": "mon-cv"
+    },
+    "buttons": {
+      "save": "Sauvegarder le CV",
+      "import": "Importer un CV"
     }
   }
 }

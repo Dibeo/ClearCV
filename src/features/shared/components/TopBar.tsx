@@ -40,7 +40,7 @@ export const TopBar = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      importCvFromJson(file, updateData);
+      importCvFromJson(file, updateData, t);
       e.target.value = "";
     }
   };
@@ -130,7 +130,7 @@ export const TopBar = () => {
           <Upload size={18} /> {t("topbar.new")}
         </button>
 
-        <button onClick={() => saveCvToJson(data)} className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
+        <button onClick={() => saveCvToJson(data, t)} className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
           <Save size={18} /> {t("topbar.save")}
         </button>
 
