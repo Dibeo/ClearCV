@@ -1,13 +1,14 @@
 import Swal from 'sweetalert2';
 import type { CVData } from '../domain/cv.types';
+import type { TFunction } from 'i18next';
 
-export const saveCvToJson = (data: CVData) => {
+export const saveCvToJson = (data: CVData, t: TFunction) => {
   try {
     if (!data || Object.keys(data).length === 0) {
       Swal.fire({
         icon: 'error',
-        title: 'Erreur',
-        text: 'Il n’y a aucune donnée à sauvegarder.',
+        title: t('topbar.errors.title'),
+        text: t('topbar.errors.noData'),
         confirmButtonColor: '#3b82f6',
       });
       return;
@@ -18,7 +19,7 @@ export const saveCvToJson = (data: CVData) => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     
-    const fileName = `mon-cv-${new Date().toLocaleDateString()}.json`;
+    const fileName = `${t('topbar.file.name')}-${new Date().toLocaleDateString()}.json`;
     
     link.href = url;
     link.download = fileName;
@@ -29,8 +30,8 @@ export const saveCvToJson = (data: CVData) => {
 
     Swal.fire({
       icon: 'success',
-      title: 'Sauvegardé !',
-      text: 'Votre configuration CV a été téléchargée avec succès.',
+      title: t('topbar.success.saved'),
+      text: t('topbar.success.downloaded'),
       timer: 2000,
       showConfirmButton: false,
       toast: true,
@@ -41,14 +42,14 @@ export const saveCvToJson = (data: CVData) => {
   } catch (error) {
     Swal.fire({
       icon: 'error',
-      title: 'Oups...',
-      text: 'Une erreur est survenue lors de la génération du fichier.',
+      title: t('topbar.errors.oops'),
+      text: t('topbar.errors.generationFailed'),
     });
     console.error(error);
   }
 };
 
-export const importCvFromJson = (file: File, updateData: (data: CVData) => void) => {
+export const importCvFromJson = (file: File, updateData: (data: CVData) => void, t: TFunction) => {
   const reader = new FileReader();
   reader.onload = (e) => {
     try {
@@ -59,15 +60,19 @@ export const importCvFromJson = (file: File, updateData: (data: CVData) => void)
 
       Swal.fire({
         icon: 'success',
-        title: 'Importé !',
-        text: 'Les données ont été chargées.',
+        title: t('topbar.success.imported'),
+        text: t('topbar.success.dataLoaded'),
         timer: 2000,
         showConfirmButton: false,
         toast: true,
         position: 'top-end',
       });
     } catch (error) {
-      Swal.fire({ icon: 'error', title: 'Erreur', text: 'Fichier JSON invalide.' });
+      Swal.fire({ 
+        icon: 'error', 
+        title: t('topbar.errors.title'), 
+        text: t('topbar.errors.invalidJson') 
+      });
       console.error(error);
     }
   };
