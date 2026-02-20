@@ -1,6 +1,7 @@
 {
   "sidebar": {
     "edit": "Editor",
+    "new": "New",
     "design": "Template's Design",
     "pdfLanguage": "CV language",
     "searchTheme": "Search theme",

@@ -92,3 +92,26 @@ export const INITIAL_CV_DATA: CVData = {
     { id: crypto.randomUUID(), name: "Permis de conduire (B)", issuer: "France", year: "2014" },
   ]
 };
+
+export const EMPTY_CV_DATA: CVData = {
+  id: crypto.randomUUID(),
+  metadata: {
+    name: "Nouveau CV",
+    lastModified: Date.now(),
+    layout: "modern",
+    language: "fr",
+  },
+  personalInfo: {
+    fullName: "",
+    summary: "",
+    title: "",
+    photoUrl: "",
+    contacts: [], 
+    socials: [],  
+  },
+  experiences: [],    
+  educations: [],     
+  skills: [],         
+  languages: [],      
+  certifications: [], 
+};
