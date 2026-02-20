@@ -5,8 +5,10 @@ import { StandardTheme } from "./StandardTheme";
 import { HipsterTheme } from "./HipsterTheme";
 import { ElegantTheme } from "./ElegantTheme";
 import { NeoBentoTheme } from "./NeoBentoTheme";
+import { BoldTheme } from "./BoldTheme";
 
 export const CV_THEMES = {
+  boldtheme: { component: BoldTheme, label: "Bold" },
   classic: { component: ClassicTheme, label: "Classique" },
   elegant: { component : ElegantTheme, label : "Elegant" },
   hipster: { component : HipsterTheme, label : "Hipster" },

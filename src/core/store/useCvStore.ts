@@ -9,6 +9,7 @@ interface CvState {
   data: CVData;
   updateData: (newData: Partial<CVData>) => void;
   reset: () => void;
+  exemple: () => void;
 }
 
 export const useCvStore = create<CvState>()(
@@ -33,6 +34,29 @@ export const useCvStore = create<CvState>()(
 
         if (result.isConfirmed) {
           set({ data: EMPTY_CV_DATA });
+
+          Swal.fire({
+            title: "Réinitialisé !",
+            text: "Votre CV est de nouveau vierge.",
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        }
+      },
+
+      exemple: async () => {
+        const result = await Swal.fire({
+          title: "Êtes-vous sûr ?",
+          text: "Toutes vos données locales seront supprimées définitivement.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Oui, effacer tout",
+          cancelButtonText: "Annuler",
+        });
+
+        if (result.isConfirmed) {
+          set({ data: INITIAL_CV_DATA });
 
           Swal.fire({
             title: "Réinitialisé !",
