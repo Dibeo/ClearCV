@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import Swal from "sweetalert2";
 import type { CVData } from "../domain/cv.types";
-import { INITIAL_CV_DATA } from "../domain/cv.constants";
+import { EMPTY_CV_DATA, INITIAL_CV_DATA } from "../domain/cv.constants";
 import { migrateCVData } from "../services/storage/migrateCVData";
 
 interface CvState {
@@ -32,7 +32,7 @@ export const useCvStore = create<CvState>()(
         });
 
         if (result.isConfirmed) {
-          set({ data: INITIAL_CV_DATA });
+          set({ data: EMPTY_CV_DATA });
 
           Swal.fire({
             title: "Réinitialisé !",
