@@ -79,7 +79,7 @@ export const StandardTheme = ({ data }: { data: CVData }) => {
 
       <div className="grid grid-cols-3 gap-10">
         <div className="col-span-2 space-y-8">
-          <section>
+          {data.experiences?.length > 0 && <section>
             <h2 className="text-sm font-black uppercase text-slate-900 mb-6 border-l-4 border-blue-600 pl-3">
               {t("sections.experience")}
             </h2>
@@ -120,7 +120,7 @@ export const StandardTheme = ({ data }: { data: CVData }) => {
                 </div>
               ))}
             </div>
-          </section>
+          </section>}
 
           {data.educations.length > 0 && (
             <section>
