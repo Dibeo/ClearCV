@@ -1,6 +1,6 @@
 name: "CodeQL Analysis"
 env:
-  TARGET_LANGUAGE: "javascript"
+  TARGET_LANGUAGE: "actions"
 on:
   workflow_dispatch: 
   push:
