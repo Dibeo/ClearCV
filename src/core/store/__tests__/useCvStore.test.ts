@@ -1,7 +1,8 @@
 import { renderHook, act } from '@testing-library/react';
 import { useCvStore } from '../useCvStore';
+
 import Swal from 'sweetalert2';
-import { INITIAL_CV_DATA } from '../../domain/cv.constants';
+import { INITIAL_CV_DATA, EMPTY_CV_DATA } from '../../domain/cv.constants';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mock SweetAlert2 – the default export is an object with a `fire` method.
@@ -13,10 +14,11 @@ vi.mock('sweetalert2', () => {
 describe('useCvStore', () => {
   // Mock a minimal localStorage for the persisted zustand middleware.
   beforeEach(() => {
-    // jsdom provides a stub, but we replace it with a simple mock that implements `clear`.
+    // Mock a simple localStorage that returns the initial data for the persist middleware.
+    const stored = JSON.stringify({ state: { data: INITIAL_CV_DATA } });
     vi.stubGlobal('localStorage', {
       clear: vi.fn(),
-      getItem: vi.fn(),
+      getItem: vi.fn().mockImplementation((key: string) => (key === 'cv-storage' ? stored : null)),
       setItem: vi.fn(),
       removeItem: vi.fn(),
     } as unknown);
@@ -54,7 +56,19 @@ describe('useCvStore', () => {
     });
 
     // After a successful reset the store must match the constant.
-    expect(result.current.data).toEqual(INITIAL_CV_DATA);
+    // After reset we expect the store to contain the EMPTY_CV_DATA (blank CV).
+    expect(result.current.data).toMatchObject(EMPTY_CV_DATA);
+    // Verify that the metadata name is the "Nouveau CV" constant.
+    expect(result.current.data.metadata.name).toBe(EMPTY_CV_DATA.metadata.name);
+    // The other arrays should be empty.
+    expect(result.current.data.experiences).toHaveLength(0);
+    expect(result.current.data.educations).toHaveLength(0);
+    expect(result.current.data.skills).toEqual([]);
+    expect(result.current.data.languages).toHaveLength(0);
+    expect(result.current.data.certifications).toHaveLength(0);
+    expect(result.current.data.personalInfo.fullName).toBe('');
+    expect(result.current.data.personalInfo.title).toBe('');
+    expect(result.current.data.personalInfo.summary).toBe('');
     // Two Swal.fire calls: confirmation + success toast.
     expect(mockFire).toHaveBeenCalledTimes(2);
   });
