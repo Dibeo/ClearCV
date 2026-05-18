@@ -1,5 +1,6 @@
 import { useCvStore } from "../../../core/store/useCvStore";
 import { CV_THEMES } from "../themes/ThemeIndex";
+import packageInfo from "../../../../package.json"
 
 export const CvPreview = () => {
   const { data } = useCvStore();
@@ -15,6 +16,9 @@ export const CvPreview = () => {
 
       <p className="text-center mt-4 text-slate-400 text-xs italic tracking-widest uppercase print:hidden">
         Format A4 — Mode {themeId}
+      </p>
+      <p className="text-center mt-4 text-slate-800 text-xs tracking-widest uppercase print:hidden">
+        {packageInfo.name} - {packageInfo.version}
       </p>
     </div>
   );

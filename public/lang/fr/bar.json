@@ -1,6 +1,8 @@
 {
   "sidebar": {
     "edit": "Editeur",
+    "new": "Nouveau",
+    "exemple": "Exemple",
     "design": "Design Template",
     "pdfLanguage": "Langue du CV",
     "searchTheme": "Chercher un theme",

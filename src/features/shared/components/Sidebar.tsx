@@ -8,7 +8,7 @@ import { LANGUAGES } from "../../../core/config/language";
 
 export const Sidebar = () => {
   const { t } = useTranslation("bar");
-  const { data, updateData } = useCvStore();
+  const { data, updateData, reset, exemple } = useCvStore();
   const { layout: currentUrlLayout } = useParams();
 
   const [isThemeOpen, setIsThemeOpen] = useState(false);
@@ -71,6 +71,7 @@ export const Sidebar = () => {
       <nav className="flex-1 px-4 flex flex-col justify-between pb-8">
         <div className="space-y-2">
           <NavLink
+            onClick={reset}
             to={`/editor/${activeLayoutId}`}
             className={({ isActive }) =>
               `flex items-center gap-3 p-3 rounded-lg transition-colors ${
@@ -80,7 +81,23 @@ export const Sidebar = () => {
               }`
             }
           >
-            <PlusCircle size={20} /> {t("sidebar.edit")}
+            <PlusCircle size={20} /> {t("sidebar.new")}
+          </NavLink>
+        </div>
+
+        <div className="space-y-2">
+          <NavLink
+            onClick={exemple}
+            to={`/editor/${activeLayoutId}`}
+            className={({ isActive }) =>
+              `flex items-center gap-3 p-3 rounded-lg transition-colors ${
+                isActive
+                  ? "bg-blue-600 text-white"
+                  : "text-slate-400 hover:bg-slate-700 hover:text-white"
+              }`
+            }
+          >
+            <PlusCircle size={20} /> {t("sidebar.exemple")}
           </NavLink>
         </div>
 
