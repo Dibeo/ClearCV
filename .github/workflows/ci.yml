@@ -2,13 +2,13 @@ name: CI – Vitest & Coverage
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
 
 jobs:
   test:
-    name: Vitest Tests + Coverage
+    name: Vitest tests + coverage
     runs-on: ubuntu-latest
 
     steps:
