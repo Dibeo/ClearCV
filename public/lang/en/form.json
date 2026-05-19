@@ -47,6 +47,18 @@
     "placeholder": "e.g., React, TypeScript, Docker...",
     "emptyInstruction": "Press Enter or the + button to add a skill."
   },
+  "projects": {
+    "title": "Projects",
+    "add": "Add project",
+    "titleLabel": "Project Title",
+    "descriptionLabel": "Description",
+    "urlLabel": "Link (optional)",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "techStackLabel": "Tech Stack (comma separated)",
+    "placeholder": "e.g., React, Node.js"
+  },
+
   "socials": {
     "title": "Social Media",
     "add": "Add network",

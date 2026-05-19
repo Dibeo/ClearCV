@@ -47,6 +47,18 @@
     "placeholder": "Ex: React, TypeScript, Docker...",
     "emptyInstruction": "Appuyez sur Entrée ou sur le bouton + pour ajouter une compétence."
   },
+  "projects": {
+    "title": "Projets",
+    "add": "Ajouter un projet",
+    "titleLabel": "Titre du projet",
+    "descriptionLabel": "Description",
+    "urlLabel": "Lien (optionnel)",
+    "startDate": "Date de début",
+    "endDate": "Date de fin",
+    "techStackLabel": "Tech Stack (séparés par des virgules)",
+    "placeholder": "ex.: React, Node.js"
+  },
+
   "socials": {
     "title": "Réseaux Sociaux",
     "add": "Ajouter un réseau",

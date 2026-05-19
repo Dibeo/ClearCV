@@ -86,6 +86,15 @@ export const INITIAL_CV_DATA: CVData = {
     { id: crypto.randomUUID(), name: "Anglais", level: "C1 - Professionnel" },
     { id: crypto.randomUUID(), name: "Espagnol", level: "B1 - Intermédiaire" },
   ],
+  projects: [
+    {
+      id: crypto.randomUUID(),
+      title: "Personal Portfolio",
+      description: "A responsive portfolio website built with React, Vite and Tailwind CSS, showcasing projects and skills.",
+      url: "https://aliceportfolio.dev",
+      date: "2022-01 — 2022-03",
+    }
+  ],
   certifications: [
     { id: crypto.randomUUID(), name: "AWS Certified Developer – Associate", issuer: "Amazon Web Services", year: "2023" },
     { id: crypto.randomUUID(), name: "Professional Scrum Master I", issuer: "Scrum.org", year: "2022" },
@@ -113,5 +122,7 @@ export const EMPTY_CV_DATA: CVData = {
   educations: [],     
   skills: [],         
   languages: [],      
+  projects: [],
+
   certifications: [], 
 };
