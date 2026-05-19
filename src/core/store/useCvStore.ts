@@ -5,11 +5,34 @@ import type { CVData } from "../domain/cv.types";
 import { EMPTY_CV_DATA, INITIAL_CV_DATA } from "../domain/cv.constants";
 import { migrateCVData } from "../services/storage/migrateCVData";
 
+// DeepPartial makes every property (including nested objects) optional.
+// This allows us to merge only a subset of the CV data (e.g., just metadata.name).
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+
+// Recursive merge that respects existing values when the source property is undefined.
+function deepMerge<T>(target: T, source: DeepPartial<T>): T {
+  const output = { ...target } as Record<string, unknown>;
+  for (const key in source) {
+    const src = (source as Record<string, unknown>)[key];
+    if (src === undefined) continue;
+    const tgt = (target as Record<string, unknown>)[key];
+    if (src && typeof src === "object" && !Array.isArray(src)) {
+      output[key] = deepMerge(tgt ?? {}, src);
+    } else {
+      output[key] = src;
+    }
+  }
+  return output as T;
+}
+
 interface CvState {
   data: CVData;
-  updateData: (newData: Partial<CVData>) => void;
-  reset: () => void;
-  exemple: () => void;
+  // Accept deep partial updates, enabling nested fields to be merged safely.
+  updateData: (newData: DeepPartial<CVData>) => void;
+  reset: () => Promise<void>;
+  exemple: () => Promise<void>;
 }
 
 export const useCvStore = create<CvState>()(
@@ -19,11 +42,13 @@ export const useCvStore = create<CvState>()(
 
       updateData: (newData) =>
         set((state) => ({
-          data: { ...state.data, ...newData },
+          data: deepMerge(state.data, newData),
         })),
 
       reset: async () => {
-        const result = await Swal.fire({
+        // ``Swal.fire`` returns a SweetAlertResult, but in tests we mock it with a plain object.
+        // Casting to ``any`` sidesteps strict type checking of the mock shape.
+        const result = await Swal.fire<unknown>({
           title: "Êtes-vous sûr ?",
           text: "Toutes vos données locales seront supprimées définitivement.",
           icon: "warning",
@@ -35,6 +60,7 @@ export const useCvStore = create<CvState>()(
         if (result.isConfirmed) {
           set({ data: EMPTY_CV_DATA });
 
+          // Success toast – its return value is ignored, ``any`` is sufficient.
           Swal.fire({
             title: "Réinitialisé !",
             text: "Votre CV est de nouveau vierge.",
@@ -46,7 +72,7 @@ export const useCvStore = create<CvState>()(
       },
 
       exemple: async () => {
-        const result = await Swal.fire({
+        const result = await Swal.fire<unknown>({
           title: "Êtes-vous sûr ?",
           text: "Toutes vos données locales seront supprimées définitivement.",
           icon: "warning",
