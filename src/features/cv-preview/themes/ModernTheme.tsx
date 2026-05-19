@@ -48,17 +48,37 @@ export const ModernTheme = ({ data }: { data: CVData }) => {
 									CONTACT_ICONS[c.label.toLowerCase() as ContactType] || Globe;
 								return (
 									<div key={c.id} className="flex items-center gap-3 group">
-										<div className="p-2 bg-slate-800 rounded-lg group-hover:bg-blue-600 transition-colors">
+										<div className="p-2 bg-slate-800 rounded-lg transition-colors">
 											<Icon
 												size={14}
-												className="text-blue-400 group-hover:text-white"
+												className="text-blue-400"
 											/>
 										</div>
 										<div className="text-[10px] break-all">
 											<p className="text-slate-500 uppercase font-bold text-[8px] leading-none mb-1">
 												{c.label}
 											</p>
-											<p className="text-slate-200">{c.value || "—"}</p>
+											{c.value ? (
+												c.value.includes("@") ? (
+													<a
+														href={`mailto:${c.value}`}
+														className="text-slate-200">
+														{c.value}
+													</a>
+												) : /^[+\d][\d\s-]*$/.test(
+														c.value.replace(/\s+/g, ""),
+												  ) ? (
+													<a
+														href={`tel:${c.value.replace(/\s+/g, "").replace(/-/g, "")}`}
+														className="text-slate-200">
+														{c.value}
+													</a>
+												) : (
+													<p className="text-slate-200">{c.value}</p>
+												)
+											) : (
+												<p className="text-slate-200">—</p>
+											)}
 										</div>
 									</div>
 								);
@@ -88,10 +108,10 @@ export const ModernTheme = ({ data }: { data: CVData }) => {
 									<div
 										key={social.id}
 										className="flex items-center gap-3 group">
-										<div className="p-2 bg-slate-800 rounded-lg group-hover:bg-blue-600 transition-colors">
+										<div className="p-2 bg-slate-800 rounded-lg transition-colors">
 											<Icon
 												size={14}
-												className="text-blue-400 group-hover:text-white"
+												className="text-blue-400"
 											/>
 										</div>
 										<div className="min-w-0">
@@ -102,7 +122,7 @@ export const ModernTheme = ({ data }: { data: CVData }) => {
 												href={hrefUrl}
 												target="_blank"
 												rel="noreferrer"
-												className="text-[10px] text-slate-200 truncate block hover:text-blue-400 transition-colors">
+												className="text-[10px] text-slate-200 truncate block transition-colors">
 												{displayUrl}
 											</a>
 										</div>
@@ -151,12 +171,43 @@ export const ModernTheme = ({ data }: { data: CVData }) => {
 						</div>
 					</section>
 				)}
+				{data.certifications && data.certifications.length > 0 && (
+					<section>
+						<h2 className="text-xs font-bold text-blue-400 tracking-[0.2em] uppercase border-b border-slate-700 pb-2 mb-2">
+							{t("sections.certifications")}
+						</h2>
+						<div className="flex flex-col space-y-2">
+							{data.certifications.map((cert) => (
+								<div
+									key={cert.id}
+									className="bg-slate-600 text-slate-300 px-2 py-1 rounded text-[9px] border border-slate-700">
+									<div className="mr-2 flex">
+										<Award size={16} className="text-blue-600" />
+										<p className="text-[10px] font-bold text-slate-300">
+											{cert.name}
+										</p>
+									</div>
+									<div className="flex-1">
+										<div className="flex justify-between items-center">
+											<p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">
+												{cert.issuer}
+											</p>
+											<span className="text-[10px] text-slate-400 font-bold">
+												{cert.year}
+											</span>
+										</div>
+									</div>
+								</div>
+							))}
+						</div>
+					</section>
+				)}
 			</div>
 
-			<div className="w-[65%] p-12 flex flex-col gap-10">
+			<div className="w-[65%] p-10 flex flex-col gap-6">
 				{data.personalInfo.summary && (
 					<section>
-						<h2 className="text-sm font-bold text-slate-800 tracking-[0.2em] uppercase mb-4 flex items-center gap-3">
+						<h2 className="text-sm font-bold text-slate-800 tracking-[0.2em] uppercase mb-2 flex items-center gap-3">
 							<span className="w-10 h-[2px] bg-blue-600"></span>{" "}
 							{t("sections.summary")}
 						</h2>
@@ -168,7 +219,7 @@ export const ModernTheme = ({ data }: { data: CVData }) => {
 
 				{data.experiences.length > 0 && (
 					<section>
-						<h2 className="text-sm font-bold text-slate-800 tracking-[0.2em] uppercase mb-8 flex items-center gap-3">
+						<h2 className="text-sm font-bold text-slate-800 tracking-[0.2em] uppercase mb-4 flex items-center gap-3">
 							<span className="w-10 h-[2px] bg-blue-600"></span>{" "}
 							{t("sections.experience")}
 						</h2>
@@ -177,7 +228,7 @@ export const ModernTheme = ({ data }: { data: CVData }) => {
 								<div
 									key={exp.id}
 									className="relative pl-6 border-l-2 border-slate-100 group">
-									<div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white border-2 border-slate-200 group-hover:border-blue-600 transition-colors shadow-sm" />
+									<div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white border-2 border-slate-200 shadow-sm" />
 									<div className="flex justify-between items-start mb-2">
 										<div>
 											<h3 className="font-bold text-slate-900 text-base leading-none">
@@ -188,7 +239,7 @@ export const ModernTheme = ({ data }: { data: CVData }) => {
 											</p>
 										</div>
 										<span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md border border-blue-100 shrink-0">
-											{exp.startDate} — {exp.endDate}
+											{exp.startDate} - {exp.endDate}
 										</span>
 									</div>
 									<ul className="list-disc ml-4 text-[12px] text-slate-600 space-y-2">
@@ -206,11 +257,11 @@ export const ModernTheme = ({ data }: { data: CVData }) => {
 
 				{data.educations.length > 0 && (
 					<section>
-						<h2 className="text-sm font-bold text-slate-800 tracking-[0.2em] uppercase mb-6 flex items-center gap-3">
+						<h2 className="text-sm font-bold text-slate-800 tracking-[0.2em] uppercase mb-2 flex items-center gap-3">
 							<span className="w-10 h-[2px] bg-blue-600"></span>{" "}
 							{t("sections.education")}
 						</h2>
-						<div className="space-y-6">
+						<div className="space-y-2">
 							{data.educations.map((edu) => (
 								<div
 									key={edu.id}
@@ -231,36 +282,45 @@ export const ModernTheme = ({ data }: { data: CVData }) => {
 						</div>
 					</section>
 				)}
-
-				{data.certifications && data.certifications.length > 0 && (
+				{data.projects && data.projects.length > 0 && (
 					<section>
-						<h2 className="text-sm font-bold text-slate-800 tracking-[0.2em] uppercase mb-6 flex items-center gap-3">
+						<h2 className="text-sm font-bold text-slate-800 tracking-[0.2em] uppercase mb-2 flex items-center gap-3">
 							<span className="w-10 h-[2px] bg-blue-600"></span>{" "}
-							{t("sections.certifications")}
+							{t("sections.projects")}
 						</h2>
-						<div className="grid grid-cols-1 gap-4">
-							{data.certifications.map((cert) => (
+						<div className="space-y-6">
+							{data.projects.map((proj) => (
 								<div
-									key={cert.id}
-									className="flex items-center gap-4 bg-slate-50 p-3 rounded-lg border border-slate-100">
-									<div className="p-2 bg-white rounded-md shadow-sm">
-										<Award size={16} className="text-blue-600" />
+									key={proj.id}
+									className="flex flex-col border-l-4 border-blue-600 pl-3">
+									<div className="flex justify-between items-center">
+										<h3 className="text-[14px] font-bold text-slate-00">
+											{proj.title}
+										</h3>
+										<span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 rounded-md border border-blue-100 shrink-0">
+											{proj.date}
+										</span>
 									</div>
-									<div className="flex-1">
-										<div className="flex justify-between items-center">
-											<p className="text-[12px] font-bold text-slate-800">
-												{cert.name}
-											</p>
-											<span className="text-[10px] text-slate-400 font-bold">
-												{cert.year}
-											</span>
-										</div>
-										{cert.issuer && (
-											<p className="text-[10px] text-blue-600 font-medium uppercase tracking-wider">
-												{cert.issuer}
-											</p>
-										)}
-									</div>
+									{proj.url && (
+										<a
+											href={
+												proj.url.startsWith("http")
+													? proj.url
+													: `https://${proj.url}`
+											}
+											className="text-blue-500 text-[12px] underline"
+											target="_blank"
+											rel="noreferrer">
+											{proj.url
+												.replace(/^https?:\/\//, "")
+												.replace(/^www\./, "")}
+										</a>
+									)}
+									{proj.description && (
+										<p className="text-[12px] text-slate-600">
+											{proj.description}
+										</p>
+									)}
 								</div>
 							))}
 						</div>

@@ -28,6 +28,14 @@ export interface Certification {
   year?: string;
 }
 
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  url?: string;
+  date?: string;
+}
+
 export interface CVData {
   id: string;
   metadata: {
@@ -49,4 +57,5 @@ export interface CVData {
   skills: string[];
   languages: Language[];
   certifications: Certification[];
-}
+  projects: Project[];
+ }
