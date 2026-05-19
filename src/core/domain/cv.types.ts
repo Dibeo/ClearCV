@@ -33,7 +33,7 @@ export interface Project {
   title: string;
   description: string;
   url?: string;
-  date?: string; // combined date field (e.g., "2022-01 — 2022-03")
+  date?: string;
 }
 
 export interface CVData {

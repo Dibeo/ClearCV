@@ -13,9 +13,7 @@ export const FormProjects = () => {
       title: "",
       description: "",
       url: "",
-      startDate: "",
-      endDate: "",
-      techStack: [],
+      date: "",
     };
     updateData({ projects: [...(data.projects || []), newProj] });
   };
