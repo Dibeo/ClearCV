@@ -100,6 +100,82 @@ export interface Project {
 }
 ```
 
+### Data Schema (Mermaid)
+
+Below is a quick visual overview of the main data structures used throughout the app.  It is expressed in **Mermaid** syntax, which many Markdown renderers (including VS Code, GitHub, and GitLab) can display directly.
+
+```mermaid
+classDiagram
+    CVData --> PersonalInfo
+    CVData --> Project
+    CVData --> Education
+    CVData --> Experience
+    CVData --> Certification
+    CVData --> Skill
+    CVData --> Language
+    CVData --> Contact
+    CVData --> Social
+
+    class PersonalInfo {
+        id: string
+        name: string
+        title: string
+        email?: string
+        phone?: string
+        summary?: string
+        // …other personal fields
+    }
+
+    class Project {
+        id: string
+        title: string
+        description: string
+        url?: string
+        date?: string
+    }
+
+    class Education {
+        id: string
+        school: string
+        degree: string
+        date?: string
+    }
+
+    class Experience {
+        id: string
+        company: string
+        role: string
+        date?: string
+        description: string
+    }
+
+    class Certification {
+        id: string
+        name: string
+        issuer?: string
+        year?: string
+    }
+
+    class Skill {
+        name: string
+    }
+
+    class Language {
+        name: string
+        level: string
+    }
+
+    class Contact {
+        label: string
+        value: string
+    }
+
+    class Social {
+        platform: string
+        url: string
+    }
+```
+
 ### Adding a New Field
 1. **Update the interface** in `cv.types.ts`.
 2. **Update constants** (`cv.constants.ts`) – add default values for seed data.
